@@ -1,7 +1,4 @@
-// I'm thinking of creating the structure like a linked list. 
-// I think that's what they want us to and I think it'll be easiest that way.
-// We just make a node for each string and then print the entire linked list.
-// Let me know what u think
+/*Tokenizer project using Linked List Structure to hold data*/
 
 
 #include <stdio.h>
@@ -27,17 +24,37 @@ Token *CreateToken( char * ts )
 }
 
 
-void DestroyToken( Token * tk ) {
+void DestroyToken( Token * tk ) 
+{
    
-   /* Token *prev = testingthisshit;
-    Token *cur = testingthisshit;
-    while(cur!=NULL) {
-        prev = cur;
-        cur = prev->next;
-        free(prev);
-    }
+   Token *iterator=head;
+   /*In case the linked list is empty*/
+   if (iterator==NULL)
+   {
+	   return;
+   }
+   
+   /*in case there is only one thing in the linked list*/
+   else if (iterator->next==NULL)
+   {
+	   free(tk);
+	   iterator->next=NULL;
+   }
+   
+   /*for all other cases*/
+   else
+   {
+	   while (iterator->next!=NULL)
+	   {
+		   if (strcmp(iterator->next->token,tk->token)==0)
+		   {
+			   iterator->next=tk->next;
+			   free(tk);
+		   }
+		   iterator=iterator->next;
+	   }
+   }
 
-	*/
 }
 
 
