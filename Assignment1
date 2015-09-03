@@ -1,9 +1,11 @@
-#include <stdio.h>
-
 // I'm thinking of creating the structure like a linked list. 
 // I think that's what they want us to and I think it'll be easiest that way.
 // We just make a node for each string and then print the entire linked list.
 // Let me know what u think
+
+
+#include <stdio.h>
+#include <stdlib.h>
 
 struct Token {
 	char data; 
@@ -11,34 +13,40 @@ struct Token {
 };
 
 typedef struct Token Token;
+		
 
-Token *CreateToken( char * string ) {
+Token *CreateToken( char * ts ) {
 
 		Token *newtoken; // creates a new empty node
-       		newtoken  = (Token*)malloc(sizeof(Token));   
+       	newtoken  = (Token*)malloc(sizeof(Token));   
   		return NULL;
 }
 
-void DestroyToken( TokenizerT * tk ) {
+
+void DestroyToken( Token * tk ) {
    
-    Token *prev = head;
-    Token *cur = head;
+   /* Token *prev = testingthisshit;
+    Token *cur = testingthisshit;
     while(cur!=NULL) {
         prev = cur;
         cur = prev->next;
         free(prev);
     }
+
+	*/
 }
 
 
-
-char *GetNextToken( TokenizerT * tk ) {
+char *GetNextToken( Token * tk ) {
 
   return NULL;
 }
 
-
 int main(int argc, char **argv) {
+	Token *testingthisshit;
+    testingthisshit = (Token*)malloc(sizeof(struct Token));
 
+	printf("%s\n", argv[1]);
+	
   return 0;
 }
