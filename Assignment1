@@ -1,0 +1,27 @@
+#include <stdio.h> 
+
+// Set everything up lets work on it in this, Change up variable names so no one accidently finds this. 
+
+struct Token {
+  char string;
+};
+
+typedef struct Token Tokenizer;
+
+TokenizerT TKCreate( char * ts ) {
+
+  return NULL;
+}
+
+void Destroy( Tokenizer * tk ) {
+}
+
+char *GetNextToken( Tokenizer * tk ) {
+
+  return NULL;
+}
+
+int main(int argc, char **argv) {
+
+  return 0;
+}
