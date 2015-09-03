@@ -7,19 +7,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Token {
-	char data; 
+struct Token 
+{
+	char *token;
+	char *tokenType	
 	struct Token *next;
-};
+}*head;
 
 typedef struct Token Token;
 		
 
-Token *CreateToken( char * ts ) {
+Token *CreateToken( char * ts ) 
+{
 
-		Token *newtoken; // creates a new empty node
-       	newtoken  = (Token*)malloc(sizeof(Token));   
-  		return NULL;
+		/* Creates an empty token node */
+		Token *newToken;
+       	newtoken  = (struct Token*)malloc(sizeof(Token));   
+  		return newToken;
 }
 
 
