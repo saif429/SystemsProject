@@ -3,11 +3,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 struct Token 
 {
 	char *token;
-	char *tokenType	
+	char *tokenType;	
 	struct Token *next;
 }*head;
 
@@ -19,7 +19,7 @@ Token *CreateToken( char * ts )
 
 		/* Creates an empty token node */
 		Token *newToken;
-       	newtoken  = (struct Token*)malloc(sizeof(Token));   
+       	newToken  = (struct Token*)malloc(sizeof(Token));   
   		return newToken;
 }
 
