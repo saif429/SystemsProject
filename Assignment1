@@ -1,12 +1,12 @@
 /*Tokenizer project using Linked List Structure to hold data*/
 
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Token 
 {
-	char *token;
+	char *data;
 	char *tokenType	
 	struct Token *next;
 }*head;
@@ -19,7 +19,7 @@ Token *CreateToken( char * ts )
 
 		/* Creates an empty token node */
 		Token *newToken;
-       	newtoken  = (struct Token*)malloc(sizeof(Token));   
+       		newtoken  = (struct Token*)malloc(sizeof(Token));   
   		return newToken;
 }
 
@@ -64,10 +64,20 @@ char *GetNextToken( Token * tk ) {
 }
 
 int main(int argc, char **argv) {
-	Token *testingthisshit;
+    Token *testingthisshit;
     testingthisshit = (Token*)malloc(sizeof(struct Token));
+    testingthisshit->data = *argv[1];
+    
+    char* test = argv[1];
+    int i = strlen(test);
+    printf("%d\n", i);
+    printf("%s\n", test);
 
 	printf("%s\n", argv[1]);
+	printf("%c\n", testingthisshit->data);
 	
+	char *letter = strtok(argv[1], " \t\n");
+	printf("%s\n", letter);
+
   return 0;
 }
