@@ -1,25 +1,37 @@
-#include <stdio.h> 
-
-// Set everything up lets work on it in this, Change up variable names so no one accidently finds this. 
+#include <stdio.h>
 
 struct Token {
-  char string;
+	char data; 
+	struct Token *next;
 };
 
-typedef struct Token Tokenizer;
+typedef struct Token Token;
 
-TokenizerT TKCreate( char * ts ) {
+Token *CreateToken( char * string ) {
+
+		Token *newtoken; // creates a new empty node
+       	newtoken  = (Token*)malloc(sizeof(Token));   
+  		return NULL;
+}
+
+void DestroyToken( TokenizerT * tk ) {
+   
+    Token *prev = head;
+    Token *cur = head;
+    while(cur!=NULL) {
+        prev = cur;
+        cur = prev->next;
+        free(prev);
+    }
+}
+
+
+
+char *GetNextToken( TokenizerT * tk ) {
 
   return NULL;
 }
 
-void Destroy( Tokenizer * tk ) {
-}
-
-char *GetNextToken( Tokenizer * tk ) {
-
-  return NULL;
-}
 
 int main(int argc, char **argv) {
 
