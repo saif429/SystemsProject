@@ -6,7 +6,7 @@
 #include <string.h>
 struct Token 
 {
-	char *token;
+	char *data;
 	char *tokenType;	
 	struct Token *next;
 }*head;
@@ -18,9 +18,9 @@ Token *CreateToken( char * ts )
 {
 
 		/* Creates an empty token node */
-		Token *newToken;
+	Token *newToken;
        	newToken  = (struct Token*)malloc(sizeof(Token));   
-  		return newToken;
+  	return newToken;
 }
 
 
@@ -46,7 +46,7 @@ void DestroyToken( Token * tk )
    {
 	   while (iterator->next!=NULL)
 	   {
-		   if (strcmp(iterator->next->token,tk->token)==0)
+		   if (strcmp(iterator->next->data,tk->data)==0)
 		   {
 			   iterator->next=tk->next;
 			   free(tk);
@@ -64,10 +64,13 @@ char *GetNextToken( Token * tk ) {
 }
 
 int main(int argc, char **argv) {
-	Token *testingthisshit;
-    testingthisshit = (Token*)malloc(sizeof(struct Token));
-
-	printf("%s\n", argv[1]);
+	
+// have to take the string and store it into an array 
+// first find the size of the array (strlen)
+    	int i = strlen(argv[1]);
+	char arrayofstrings[i];
+	strcpy(arrayofstrings, argv[1]); // copies the string into the array
+	printf("%s\n", arrayofstrings);
 	
   return 0;
 }
