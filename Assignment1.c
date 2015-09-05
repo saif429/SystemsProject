@@ -64,6 +64,48 @@ char *GetNextToken( Token * tk ) {
   return NULL;
 }
 
+void populateTokenList(char* input)
+{
+	
+	int i=0;
+	int y=0;
+	
+	while (input[i+1]!=NULL)
+	{
+		/* Checks for hexadecimal */
+		if (input[i]=='0' && input[i+1]=='x')
+		{
+			while (isalnum(input[y+2])
+			{
+				y++;
+			}
+			
+			/*Add Code here to get substring from i ->>>>>>> y+2 */
+			i=y+2;
+			y=y+2;
+		}
+		
+		/*Checks for octal */
+		else if (input[i]=='0")
+		{
+			while (isdigit(input[y+1])
+			{
+				y++;
+			}
+			/*Add Code here to get substring from i ->>>>>>> y+2 */
+			i=y+1;
+			y=y+1;
+		}
+		
+		
+	
+	}
+	
+	
+}
+
+
+
 int main(int argc, char **argv) {
 	
 	int i = strlen(argv[1]);
