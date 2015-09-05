@@ -86,12 +86,13 @@ void populateTokenList(char* input)
 		}
 		
 		/*Checks for octal */
-		else if (input[i]=='0")
+		else if (input[i]=='0')
 		{
 			while (isdigit(input[y+1])
 			{
 				y++;
 			}
+			/*Add Code here to get substring from i ->>>>>>> y+2 */
 			
 			i=y+1;
 			y=y+1;
