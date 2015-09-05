@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 struct Token 
 {
 	char *data;
@@ -68,16 +69,23 @@ int main(int argc, char **argv) {
 	int i = strlen(argv[1]);
 	char arrayofstrings[i];
 	strcpy(arrayofstrings, argv[1]); // copies the string into the array
-
-	char *testing;
-	testing = strtok(arrayofstrings, " \t\n");
-		
-	while (testing!=NULL)
-	{
-		printf("%s\n", testing);
-		testing = strtok(NULL, " \t\n");
+	// keep this part, it should be fine, just stores the string into the array using its string length. 
+	// the part below is not right but it splits up the array based off of tabs and whitespaces. 
+	// I kind of understand the If Statements now, we can just check each character then
+	// I'll add the if statements below
 	
-	}
+	int g;
+	for (g = 0; g < i; g ++){
+
+		if( isalpha(arrayofstrings[g]) )
+   		{
+      			printf("var1 = |%c| is an alphabet\n", var1 );
+   		}
+		else	
+		
+		}
+	 // if statements just trying to figure them out (don't change the array part, it should be fine. )
+	
 	
   return 0;
 }
