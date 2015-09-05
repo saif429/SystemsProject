@@ -75,17 +75,15 @@ int main(int argc, char **argv) {
 	// I'll add the if statements below
 	
 	int g;
-	for (g = 0; g < i; g ++){
-
-		if( isalpha(arrayofstrings[g]) )
-   		{
-      			printf("var1 = |%c| is an alphabet\n", var1 );
-   		}
-		else	
-		
-		}
-	 // if statements just trying to figure them out (don't change the array part, it should be fine. )
 	
+	for (g = 0; g < i; g ++){ // this will go through each index of the array checking each character
+	// the if statements will be in the loop
+
+		if(isspace(arrayofstrings[g])){
+      			printf("This is a white space: %s\n", argv[g] );
+      			printf("This is the index id: %d\n", g);
+      		}
+      	}
 	
   return 0;
 }
