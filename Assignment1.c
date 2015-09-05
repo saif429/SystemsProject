@@ -65,12 +65,19 @@ char *GetNextToken( Token * tk ) {
 
 int main(int argc, char **argv) {
 	
-// have to take the string and store it into an array 
-// first find the size of the array (strlen)
-    	int i = strlen(argv[1]);
+	int i = strlen(argv[1]);
 	char arrayofstrings[i];
 	strcpy(arrayofstrings, argv[1]); // copies the string into the array
-	printf("%s\n", arrayofstrings);
+
+	char *testing;
+	testing = strtok(arrayofstrings, " \t\n");
+		
+	while (testing!=NULL)
+	{
+		printf("%s\n", testing);
+		testing = strtok(NULL, " \t\n");
+	
+	}
 	
   return 0;
 }
