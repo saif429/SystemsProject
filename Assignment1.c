@@ -77,45 +77,49 @@ A floating-point constant token is follows the rules for floating-point constant
 C operator tokens are any of the C operators shown in your C language reference card.
 */
 	
-	int i=0;
+	
+	int z=0;
 	int y=0;
 	
-	while (input[i+1]!=NULL)
+	
+	while (z<i)
 	{
-		/* Checks for hexadecimal */
-		if (input[i]=='0' && input[i+1]=='x')
-		{
-			while (isalnum(input[y+2])
-			{
-				y++;
+		if (input[z]=='0'){ // big if statement for all 0 if statements
+				
+			if(input[z+1]=='X'){
+				y = z+2;
+				while (isalnum(input[y])){
+					y++;
+ 					printf ("These values are all hexadecimal\n");
+ 					break;
+				}
+				
 			}
-			
-			/*Add Code here to get substring from i ->>>>>>> y+2 */
-			i=y+2;
-			y=y+2;
-		}
-		
-		/*Checks for octal */
-		else if (input[i]=='0')
-		{
-			while (isdigit(input[y+1])
-			{
-				y++;
+				
+			if(input[z+1]=='x'){
+				y = z+2;
+				while (isalnum(input[y])){
+					y++;
+ 					printf ("These values are all hexadecimal\n");
+ 					break;
+					}	
+				}
 			}
-			/*Add Code here to get substring from i ->>>>>>> y+2 */
-			
-			i=y+1;
-			y=y+1;
+		
+		if (isdigit(input[z]) && input[z]!= '0'){
+				
+			if (isdigit(input[z+1])){
+				y = z+2;
+				while (isdigit(input[y])){
+					y++;
+ 					printf ("These are all integars\n");
+ 					break;
+				}
+			}
+				
 		}
-		
-		
-	
+		break;	
 	}
-	
-	
-}
-
-
 
 int main(int argc, char **argv) {
 	
