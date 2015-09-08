@@ -110,9 +110,9 @@ void populateTokenList(char* input, int i)
 }
 int main(int argc, char **argv) {
 	
-	int i = strlen(argv[1]);
+	int i = sizeof(argv[1]); // size of function includes the Null character 
 	char arrayofstrings[i];
-	strcpy(arrayofstrings, argv[1]);
+	strcpy(arrayofstrings, argv[1]); // also includes the null character in the copying
 	populateTokenList(arrayofstrings, i);
 	
 
