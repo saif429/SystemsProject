@@ -96,8 +96,9 @@ void printAllTokens()
 	Token *i=head;
 	while (i!=NULL)
 	{	
-		printf("%s\n",i->data);
-		printf("%s\n",i->tokenType);
+		printf("%s",i->tokenType);
+		printf(" %s\n",i->data);
+		
 		i=i->next;
 	}
 }
