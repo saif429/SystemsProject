@@ -66,61 +66,48 @@ char *GetNextToken( Token * tk ) {
 
 void populateTokenList(char* input, int i)
 {
-	
-/*
-A word token is an alphabetic character followed by any number of alphanumeric characters.
-A decimal integer constant token is a digit (0-9) followed by any number of digits.
-An octal integer constant token is a 0 followed by any number of octal digits (i.e. 0-7).
-A hexadecimal integer constant token is 0x (or 0X) followed by any number of hexadecimal digits
-(i.e. 0-9, a-f, A-F).
-A floating-point constant token is follows the rules for floating-point constants in Java or C.
-C operator tokens are any of the C operators shown in your C language reference card.
-*/
-	
-	
-	int z=0;
-	int y=0;
-	
-	
-	while (z<i)
-	{
-		if (input[z]=='0'){ // big if statement for all 0 if statements
-				
-			if(input[z+1]=='X'){
-				y = z+2;
-				while (isalnum(input[y])){
-					y++;
- 					printf ("These values are all hexadecimal\n");
- 					break;
-				}
-				
-			}
-				
-			if(input[z+1]=='x'){
-				y = z+2;
-				while (isalnum(input[y])){
-					y++;
- 					printf ("These values are all hexadecimal\n");
- 					break;
-					}	
-				}
-			}
-		
-		if (isdigit(input[z]) && input[z]!= '0'){
-				
-			if (isdigit(input[z+1])){
-				y = z+2;
-				while (isdigit(input[y])){
-					y++;
- 					printf ("These are all integars\n");
- 					break;
-				}
-			}
-				
-		}
-		break;	
-	}
 
+	int z = 0; // will keep track of our beginning index of the token
+	int y = 0; // will keep track of our ending index of the token 
+	
+	while (z < i){ // go through the entire array until it hits NULL character
+		
+		if (input[z]=='0'){ // big if statement for all 0 if statements
+		
+			if(input[z+1]=='X'){ // if the second character begins with BIG X, its a hexadecimal 
+				
+				y = z+2; // checks for everything after realizing its a hexadecimal
+				
+				while (isalnum(input[y])){
+						y++; // keeps count of how many indexes are part of the token.
+				
+						if (input[y] == '\0'){ // if it hits the end of the string, this adds on the null character index.
+							y++;
+							break;
+						}
+ 						
+				}
+					
+				int d = z; // goes to the beginning of the token
+				int lengthoftoken = y-z; // determine how long the token actually is
+				char newtokenstring[lengthoftoken]; // form a new array for the token
+				int b = 0;	// variable used to loop through entire new array and add onto each character
+				
+				for (d=z; d<y; d++){ // loops through the input array and token array and adds on each character
+						newtokenstring[b] = input[d];
+						b++;
+				}	
+					
+				int test; // used this to test for the size to make sure it includes the Null character.
+				test = sizeof(newtokenstring);
+				printf("This is the size of the token: %d\n", test);
+				printf("%s\n", newtokenstring);			
+					
+			}
+		}
+	z++;
+	}
+}
 int main(int argc, char **argv) {
 	
 	int i = strlen(argv[1]);
