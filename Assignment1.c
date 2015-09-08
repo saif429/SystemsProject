@@ -116,9 +116,10 @@ void createNewString (char* input, char* type, int y, int z)
 	int TokenLength = y-z;
 				
 	/*Creates a string for just the token */
+	/*Fixes a null termination bug */
 	char *NewToken=malloc((TokenLength+1)*sizeof(char*));
 	NewToken[TokenLength+1]='\0';
-	//char NewToken[TokenLength];
+	
 				
 	/* Temporary variable simply used to add the token to the NewToken string */
 	int b = 0;
