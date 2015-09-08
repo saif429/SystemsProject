@@ -161,7 +161,7 @@ void populateTokenList(char* input)
 			{  
 				/* Y is the stuff after the hexadecimal identifier */
 				y = z+2; 
-				while (isalnum(input[y]))
+				while (isalnum(input[y]) && input[y]<'g')
 				{
 						y++; // keeps count of how many indexes are part of the token.
 	
@@ -173,7 +173,7 @@ void populateTokenList(char* input)
 				}
 					
 				createNewString(input,"Hexadecimal",y,z);
-
+				z=y;
 					
 			}
 			else
@@ -192,6 +192,7 @@ void populateTokenList(char* input)
 						}
 				}
 				createNewString(input,"Octal",y,z);
+				z=y;
 			}
 			
 			
@@ -210,9 +211,14 @@ void populateTokenList(char* input)
 				}
 			}
 			createNewString(input,"word",y,z);
+			z=y;
+			
+		}
+		if (input[z]==' ')
+		{
+			z++;
 		}
 		
-	z++;
 	}
 }
 
