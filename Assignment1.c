@@ -15,17 +15,21 @@ struct Token
 typedef struct Token Token;
 		
 
-Token *CreateToken(char * ts) 
+Token *CreateToken(char * ts, char * type) 
 {
 	/*if the token linked list is empty*/
 	
 	if (head==NULL)
 	{
 		Token *newToken=(struct Token*)malloc(sizeof(Token));
+		
+		
        	newToken->data=ts;
-		head=newToken;
+		newToken->tokenType=type;	
 		newToken->next=NULL;
-       	return newToken;
+		
+		head=newToken;
+       	return head;
 	}
 	
 	/* If the token list has at least 1 or more things in it */
@@ -41,10 +45,13 @@ Token *CreateToken(char * ts)
 		}
 		
 		
-		Token *newToken=(struct Token*)malloc(sizeof(Token));       	
-       	newToken->data=ts;
+		Token *newToken=(struct Token*)malloc(sizeof(Token));
+       	
+       	newToken->data=ts;		
+		newToken->tokenType=type;
        	iter->next=newToken;
 		newToken->next=NULL;
+		
        	return newToken;
 	}
 	
@@ -86,16 +93,17 @@ void DestroyToken( Token * tk )
 
 void printAllTokens()
 {
-	Token *iterator=head;
-	
-	while (iterator!=NULL)
-	{
-		printf("%s\n", iterator->tokenType);
-		iterator=iterator->next;
+	Token *i=head;
+	while (i!=NULL)
+	{	
+		printf("%s\n",i->data);
+		printf("%s\n",i->tokenType);
+		i=i->next;
 	}
 }
 
-char *GetNextToken( Token * tk ) {
+char *GetNextToken( Token * tk ) 
+{
 
   return NULL;
 }
@@ -108,7 +116,9 @@ void createNewString (char* input, char* type, int y, int z)
 	int TokenLength = y-z;
 				
 	/*Creates a string for just the token */
-	char NewToken[TokenLength];
+	char *NewToken=malloc((TokenLength+1)*sizeof(char*));
+	NewToken[TokenLength+1]='\0';
+	//char NewToken[TokenLength];
 				
 	/* Temporary variable simply used to add the token to the NewToken string */
 	int b = 0;
@@ -118,10 +128,8 @@ void createNewString (char* input, char* type, int y, int z)
 	{
 		NewToken[b] = input[TokenStart];
 		b++;
-	}
-printf("%s\n",NewToken);	
-	Token *temporary=CreateToken(NewToken);
-	temporary->tokenType=type;
+	}	
+	CreateToken(NewToken,type);
 	
 }
 
