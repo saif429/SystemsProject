@@ -194,6 +194,20 @@ void populateTokenList(char* input)
 				createNewString(input,"Octal",y,z);
 			}
 			
+			if (isalpha(input[z])){
+			y = z+1;
+				while (isalpha(input[y])){
+					y++;
+					if (input[y] == '\0')
+					{ // if it hits the end of the string, this adds on the null character index.
+						y++;
+						break;
+					}
+				}
+			}
+			createNewString(input,"word",y,z);	
+			}
+			
 		}
 	z++;
 	}
