@@ -169,10 +169,11 @@ void populateTokenList(char* input)
 				z=y;
 					
 			}
+			/*checks octal */
 			else
 			{
 				y=z+1;
-				while (isdigit(input[y]))
+				while (isdigit(input[y]) && input[y]<7)
 				{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
