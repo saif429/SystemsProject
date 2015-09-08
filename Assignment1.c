@@ -25,13 +25,14 @@ Token *CreateToken( char * ts )
 		Token *newToken;
        		newToken  = (struct Token*)malloc(sizeof(Token));
        		newToken->data=ts;
-       		return newToken
+       		return newToken;
 	}
 	
 	/* If the token list has at least 1 or more things in it */
 	else
 	{
 		/*Iterator*/
+		 Token *iter;
 		iter=head;
 		
 		while (iter->next!=NULL)
@@ -43,7 +44,7 @@ Token *CreateToken( char * ts )
        		newToken  = (struct Token*)malloc(sizeof(Token));
        		newToken->data=ts;
        		iter->next=newToken;
-       		return newToken
+       		return newToken;
 	}
 
 }
@@ -96,7 +97,7 @@ void createNewString (char* input, char* type, int y, int z)
 	int TokenLength = y-z;
 				
 	/*Creates a string for just the token */
-	char NewToken[TokenLength]
+	char NewToken[TokenLength];
 				
 	/* Temporary variable simply used to add the token to the NewToken string */
 	int b = 0;
@@ -181,12 +182,11 @@ int main(int argc, char **argv)
 	strcpy(arrayofstrings, argv[1]); // also includes the null character in the copying
 	populateTokenList(arrayofstrings);
 	
-				/*
-				int test; // used this to test for the size to make sure it includes the Null character.
-				test = sizeof(newtokenstring);
-				printf("This is the size of the token: %d\n", test);
-				printf("%s\n", newtokenstring);	
-				*/
+	int test; // used this to test for the size to make sure it includes the Null character.		
+	test = sizeof(arrayofstrings);				
+	printf("This is the size of the token: %d\n", test);
+	printf("%s\n", arrayofstrings);	
+				
 	
   return 0;
 }
