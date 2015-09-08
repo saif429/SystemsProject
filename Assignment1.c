@@ -173,7 +173,7 @@ void populateTokenList(char* input)
 			else
 			{
 				y=z+1;
-				while (isdigit(input[y]) && input[y]<7)
+				while (isdigit(input[y]) && input[y]<=7)
 				{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
