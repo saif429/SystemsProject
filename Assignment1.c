@@ -18,7 +18,7 @@ typedef struct Token Token;
 Token *CreateToken( char * ts ) 
 {
 
-		/* Creates an empty token node */
+	/* Creates an empty token node */
 	Token *newToken;
        	newToken  = (struct Token*)malloc(sizeof(Token));   
   	return newToken;
@@ -64,23 +64,29 @@ char *GetNextToken( Token * tk ) {
   return NULL;
 }
 
-void populateTokenList(char* input, int i)
+void populateTokenList(char* input)
 {
+	/* indicates how many times to iterate */
+	int i = sizeof(input);
 
-	int z = 0; // will keep track of our beginning index of the token
-	int y = 0; // will keep track of our ending index of the token 
+	/*Z keeps track of the beggining index*/
+	int z = 0;
 	
-	while (z < i){ // go through the entire array until it hits NULL character
+	/* Y keeps track of the ending */
+	int y = 0;  
+	
+	while (z < i)
+	{ // go through the entire array until it hits NULL character
+		if (input[z]=='0')
+		{ // big if statement for all 0 if statements
 		
-		if (input[z]=='0'){ // big if statement for all 0 if statements
-		
-			if(input[z+1]=='X'){ // if the second character begins with BIG X, its a hexadecimal 
-				
+			if(input[z+1]=='X')
+			{ // if the second character begins with BIG X, its a hexadecimal 
 				y = z+2; // checks for everything after realizing its a hexadecimal
-				
-				while (isalnum(input[y])){
+				while (isalnum(input[y]))
+				{
 						y++; // keeps count of how many indexes are part of the token.
-				
+	
 						if (input[y] == '\0'){ // if it hits the end of the string, this adds on the null character index.
 							y++;
 							break;
@@ -113,7 +119,7 @@ int main(int argc, char **argv) {
 	int i = sizeof(argv[1]); // size of function includes the Null character 
 	char arrayofstrings[i];
 	strcpy(arrayofstrings, argv[1]); // also includes the null character in the copying
-	populateTokenList(arrayofstrings, i);
+	populateTokenList(arrayofstrings);
 	
 
 	
