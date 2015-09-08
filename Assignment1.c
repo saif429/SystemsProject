@@ -157,7 +157,7 @@ void populateTokenList(char* input)
 		{ 
 		
 			/*for finding hexadecimal characters*/
-			if(input[z+1]=='x')
+			if(input[z+1]=='x' || input[z+1] == 'X')
 			{  
 				/* Y is the stuff after the hexadecimal identifier */
 				y = z+2; 
