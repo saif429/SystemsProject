@@ -15,38 +15,39 @@ struct Token
 typedef struct Token Token;
 		
 
-Token *CreateToken( char * ts ) 
+Token *CreateToken(char * ts) 
 {
-
-	
 	/*if the token linked list is empty*/
+	
 	if (head==NULL)
 	{
-		Token *newToken;
-       		newToken  = (struct Token*)malloc(sizeof(Token));
-       		newToken->data=ts;
-       		return newToken;
+		Token *newToken=(struct Token*)malloc(sizeof(Token));
+       	newToken->data=ts;
+		head=newToken;
+		newToken->next=NULL;
+       	return newToken;
 	}
 	
 	/* If the token list has at least 1 or more things in it */
 	else
 	{
 		/*Iterator*/
-		 Token *iter;
-		iter=head;
+		Token *iter=head;
 		
 		while (iter->next!=NULL)
 		{
 			iter=iter->next;
+		
 		}
 		
-		Token *newToken;
-       		newToken  = (struct Token*)malloc(sizeof(Token));
-       		newToken->data=ts;
-       		iter->next=newToken;
-       		return newToken;
+		
+		Token *newToken=(struct Token*)malloc(sizeof(Token));       	
+       	newToken->data=ts;
+       	iter->next=newToken;
+		newToken->next=NULL;
+       	return newToken;
 	}
-
+	
 }
 
 /*Destroys the linked list entirely, probably not the right way to do this */
@@ -83,6 +84,16 @@ void DestroyToken( Token * tk )
 
 }
 
+void printAllTokens()
+{
+	Token *iterator=head;
+	
+	while (iterator!=NULL)
+	{
+		printf("%s\n", iterator->tokenType);
+		iterator=iterator->next;
+	}
+}
 
 char *GetNextToken( Token * tk ) {
 
@@ -107,16 +118,17 @@ void createNewString (char* input, char* type, int y, int z)
 	{
 		NewToken[b] = input[TokenStart];
 		b++;
-	}	
-				
-	CreateToken(NewToken)->tokenType=type;
+	}
+printf("%s\n",NewToken);	
+	Token *temporary=CreateToken(NewToken);
+	temporary->tokenType=type;
 	
 }
 
 void populateTokenList(char* input)
 {
 	/* indicates how many times to iterate */
-	int i = sizeof(input);
+	int i = strlen(input);
 
 	/*Z keeps track of the beggining index*/
 	int z = 0;
@@ -127,6 +139,7 @@ void populateTokenList(char* input)
 	while (z < i)
 	{ // go through the entire array until it hits NULL character
 	
+		
 	/*This if statement handles tokens that start with 0 */
 	/*Hexadecimal eg. 0x */
 	/*Octal eg. 0532 */
@@ -134,7 +147,7 @@ void populateTokenList(char* input)
 		{ 
 		
 			/*for finding hexadecimal characters*/
-			if(input[z+1]=='X')
+			if(input[z+1]=='x')
 			{  
 				/* Y is the stuff after the hexadecimal identifier */
 				y = z+2; 
@@ -155,6 +168,7 @@ void populateTokenList(char* input)
 			}
 			else
 			{
+				y=z+1;
 				while (isdigit(input[y]))
 				{
 						/*keeps count of how many indexes have been iterated through*/
@@ -174,19 +188,13 @@ void populateTokenList(char* input)
 	z++;
 	}
 }
+
+/* The main function */
 int main(int argc, char **argv) 
 {
 	
-	int i = sizeof(argv[1]); // size of function includes the Null character 
-	char arrayofstrings[i];
-	strcpy(arrayofstrings, argv[1]); // also includes the null character in the copying
-	populateTokenList(arrayofstrings);
-	
-	int test; // used this to test for the size to make sure it includes the Null character.		
-	test = sizeof(arrayofstrings);				
-	printf("This is the size of the token: %d\n", test);
-	printf("%s\n", arrayofstrings);	
-				
+	populateTokenList(argv[1]);	
+	printAllTokens();
 	
   return 0;
 }
