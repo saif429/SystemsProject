@@ -22,14 +22,11 @@ Token *CreateToken(char * ts, char * type)
 	if (head==NULL)
 	{
 		Token *newToken=(struct Token*)malloc(sizeof(Token));
-		
-		
-       	newToken->data=ts;
+       		newToken->data=ts;
 		newToken->tokenType=type;	
 		newToken->next=NULL;
-		
 		head=newToken;
-       	return head;
+       		return head;
 	}
 	
 	/* If the token list has at least 1 or more things in it */
@@ -37,22 +34,19 @@ Token *CreateToken(char * ts, char * type)
 	{
 		/*Iterator*/
 		Token *iter=head;
-		
+	
 		while (iter->next!=NULL)
 		{
 			iter=iter->next;
-		
 		}
 		
-		
 		Token *newToken=(struct Token*)malloc(sizeof(Token));
-       	
-       	newToken->data=ts;		
+       		newToken->data=ts;		
 		newToken->tokenType=type;
-       	iter->next=newToken;
+       		iter->next=newToken;
 		newToken->next=NULL;
-		
-       	return newToken;
+	
+       		return newToken;
 	}
 	
 }
@@ -65,14 +59,14 @@ void DestroyToken( Token * tk )
    /*In case the linked list is empty*/
    if (iterator==NULL)
    {
-	   return;
+   	return;
    }
    
    /*in case there is only one thing in the linked list*/
    else if (iterator->next==NULL)
    {
-	   free(tk);
-	   iterator->next=NULL;
+	free(tk);
+	iterator->next=NULL;
    }
    
    /*for all other cases*/
@@ -105,7 +99,6 @@ void printAllTokens()
 
 char *GetNextToken( Token * tk ) 
 {
-
   return NULL;
 }
 
