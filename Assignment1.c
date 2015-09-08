@@ -19,14 +19,16 @@ Token *CreateToken(char * ts, char * type)
 {
 	/*if the token linked list is empty*/
 	
+	
+	
 	if (head==NULL)
 	{
 		Token *newToken=(struct Token*)malloc(sizeof(Token));
-       		newToken->data=ts;
+       	newToken->data=ts;
 		newToken->tokenType=type;	
 		newToken->next=NULL;
 		head=newToken;
-       		return head;
+       	return head;
 	}
 	
 	/* If the token list has at least 1 or more things in it */
@@ -124,6 +126,12 @@ void createNewString (char* input, char* type, int y, int z)
 		NewToken[b] = input[TokenStart];
 		b++;
 	}	
+	if (strcmp(type,"Malformed Token")==0)
+	{
+		CreateToken(" ",type);
+		return;
+	}
+	
 	CreateToken(NewToken,type);
 	
 }
@@ -170,10 +178,10 @@ void populateTokenList(char* input)
 					
 			}
 			/*checks octal */
-			else
+			else if (isdigit(input[z+1]) && (input[z+1]-'0')<=7)
 			{
 				y=z+1;
-				while (isdigit(input[y]) && input[y]<=7)
+				while (isdigit(input[y]) && (input[z+1]-'0')<=7)
 				{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
@@ -188,9 +196,32 @@ void populateTokenList(char* input)
 				createNewString(input,"Octal",y,z);
 				z=y;
 			}
-			
-			
-			
+			else if(input[z+1]=='.')
+			{
+				y=z+1;
+				while (isdigit(input[y]))
+				{
+						/*keeps count of how many indexes have been iterated through*/
+						y++; 
+	
+						/* if the end of string is hit, add 1 to y in order to account for the null character index */
+						if (input[y] == '\0')
+						{ 
+							y++;
+							break;
+						}
+				}
+				
+				createNewString(input,"Floating Point",y,z);
+				z=y;
+			}
+			else
+			{
+				createNewString(input,"Malformed Token",0,0);
+				z=y;
+				z+=2;
+				
+			}
 		}
 		else if (isalpha(input[z]))
 		{
@@ -208,10 +239,27 @@ void populateTokenList(char* input)
 			z=y;
 			
 		}
+		else if (isdigit(input[z]))
+		{
+			y = z+1;
+			while (isdigit(input[y]))
+			{
+				y++;
+				if (input[y] == '\0')
+				{ // if it hits the end of the string, this adds on the null character index.
+					y++;
+					break;
+				}
+			}
+			createNewString(input,"Decimal",y,z);
+			z=y;
+			
+		}
 		if (input[z]==' ')
 		{
 			z++;
 		}
+		
 		
 	}
 }
