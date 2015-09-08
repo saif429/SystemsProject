@@ -94,20 +94,33 @@ void populateTokenList(char* input)
  						
 				}
 					
-				int d = z; // goes to the beginning of the token
-				int lengthoftoken = y-z; // determine how long the token actually is
-				char newtokenstring[lengthoftoken]; // form a new array for the token
-				int b = 0;	// variable used to loop through entire new array and add onto each character
+				/* Gets the start of the token */	
+				int TokenStart = z;
+				/*Gets the length of the token */
+				int TokenLength = y-z;
 				
-				for (d=z; d<y; d++){ // loops through the input array and token array and adds on each character
-						newtokenstring[b] = input[d];
+				/*Creates a string for just the token */
+				char NewToken[TokenLength]
+				
+				/* Temporary variable simply used to add the token to the NewToken string */
+				int b = 0;
+				
+				/*Loops through the input string, and adds the token to the NewToken string*/
+				for (TokenStart=z; TokenStart<y; TokenStart++)
+				{
+						NewToken[b] = input[TokenStart];
 						b++;
 				}	
-					
+				
+			
+				CreateToken(NewToken);
+				
+				/*
 				int test; // used this to test for the size to make sure it includes the Null character.
 				test = sizeof(newtokenstring);
 				printf("This is the size of the token: %d\n", test);
-				printf("%s\n", newtokenstring);			
+				printf("%s\n", newtokenstring);	
+				/*
 					
 			}
 		}
