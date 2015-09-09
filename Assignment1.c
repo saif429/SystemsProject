@@ -201,8 +201,8 @@ void populateTokenList(char* input)
 			}
 			else if(input[z+1]=='.')
 			{
-				y=z+1;
-				while (isdigit(input[y]))
+				y=z+2;
+				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y])))
 				{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
@@ -217,6 +217,7 @@ void populateTokenList(char* input)
 				
 				createNewString(input,"Floating Point",y,z);
 				z=y;
+				continue;
 			}
 			else
 			{
