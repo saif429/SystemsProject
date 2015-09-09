@@ -213,6 +213,12 @@ void populateTokenList(char* input)
 							y++;
 							break;
 						}
+						
+						if (input[y] == '0'){
+							if (input[y+1] == 'X' || input[y+1] == 'x'){
+								break;
+							}
+						}
 				}
 				
 				createNewString(input,"Floating Point",y,z);
@@ -247,16 +253,15 @@ void populateTokenList(char* input)
 		else if (isdigit(input[z]))
 		{
 			y = z+1;
-			while (isdigit(input[y]))
+			while (isdigit(input[y]) && input[z+1]!='.')
 			{
 				
 				if (input[y]=='0')
 				{
-					if (input[y+1]=='x')
+					if (input[y+1]=='x' || input[y+1]=='X'])
 					{
 						
 						break;
-						printf("%s", "poop");
 					}
 				}
 				y++;
@@ -271,6 +276,30 @@ void populateTokenList(char* input)
 			z=y;
 			
 		}
+		else if (isdigit(input[z]) && input[z+1]=='.'){
+			y=z+2;
+			while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y])))
+			{
+			/*keeps count of how many indexes have been iterated through*/
+				y++; 
+				/* if the end of string is hit, add 1 to y in order to account for the null character index */
+				if (input[y] == '\0')
+				{ 
+					y++;
+					break;
+				}
+						
+				if (input[y] == '0'){
+					if (input[y+1] == 'X' || input[y+1] == 'x'){
+						break;
+					}
+				}
+			}
+			createNewString(input,"Floating Point",y,z);
+			z=y;
+			continue;
+		}
+		
 		if (input[z]==' ')
 		{
 			z++;
