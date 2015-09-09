@@ -182,9 +182,33 @@ void populateTokenList(char* input)
 			/*checks octal */
 			else if (isdigit(input[z+1]) && (input[z+1]-'0')<=7)
 			{
+			int r = 0;
 				y=z+1;
 				while (isdigit(input[y]) && input[y]-'0'<=7)
 				{
+						/*keeps count of how many indexes have been iterated through*/
+						y++; 
+						
+						if (input[y] == '.'){
+						r++;
+						}
+	
+						/* if the end of string is hit, add 1 to y in order to account for the null character index */
+						if (input[y] == '\0')
+						{ 
+							y++;
+							break;
+						}
+				}
+				
+				if (r == 0){
+				createNewString(input,"Octal",y,z);
+				z=y;
+				}
+				else if (r!=0){			
+					y = y+1;
+					while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y])))
+					{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
 	
@@ -194,10 +218,19 @@ void populateTokenList(char* input)
 							y++;
 							break;
 						}
+						
+						if (input[y] == '0'){
+							if (input[y+1] == 'X' || input[y+1] == 'x'){
+								break;
+							}
+						}
 				}
-				createNewString(input,"Octal",y,z);
+				
+				createNewString(input,"Floating Point",y,z);
 				z=y;
 				continue;
+			}	
+			
 			}
 			else if(input[z+1]=='.')
 			{
