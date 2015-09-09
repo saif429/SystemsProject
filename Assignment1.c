@@ -114,7 +114,8 @@ void createNewString (char* input, char* type, int y, int z)
 	/*Creates a string for just the token */
 	/*Fixes a null termination bug */
 	char *NewToken=malloc((TokenLength+1)*sizeof(char*));
-	NewToken[TokenLength+1]='\0';
+	/*removing +1 fixes a null termiantion thing*/
+	NewToken[TokenLength]='\0';
 	
 				
 	/* Temporary variable simply used to add the token to the NewToken string */
@@ -175,13 +176,14 @@ void populateTokenList(char* input)
 					
 				createNewString(input,"Hexadecimal",y,z);
 				z=y;
+				continue;
 					
 			}
 			/*checks octal */
 			else if (isdigit(input[z+1]) && (input[z+1]-'0')<=7)
 			{
 				y=z+1;
-				while (isdigit(input[y]) && (input[z+1]-'0')<=7)
+				while (isdigit(input[y]) && input[y]-'0'<=7)
 				{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
@@ -195,6 +197,7 @@ void populateTokenList(char* input)
 				}
 				createNewString(input,"Octal",y,z);
 				z=y;
+				continue;
 			}
 			else if(input[z+1]=='.')
 			{
@@ -239,17 +242,29 @@ void populateTokenList(char* input)
 			z=y;
 			
 		}
+		/*Does regular digits*/
 		else if (isdigit(input[z]))
 		{
 			y = z+1;
 			while (isdigit(input[y]))
 			{
+				
+				if (input[y]=='0')
+				{
+					if (input[y+1]=='x')
+					{
+						
+						break;
+						printf("%s", "poop");
+					}
+				}
 				y++;
 				if (input[y] == '\0')
 				{ // if it hits the end of the string, this adds on the null character index.
 					y++;
 					break;
 				}
+
 			}
 			createNewString(input,"Decimal",y,z);
 			z=y;
