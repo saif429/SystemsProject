@@ -5,12 +5,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+
+/*
+Token Structure is based off a linked list
+This was done so that we could store the tokens easily and then
+be able to easily find a token or remove a token if needed
+*/
+
 struct Token 
 {
 	char *data;
 	char *tokenType;	
 	struct Token *next;
-}*head;
+}
+*head;
 
 typedef struct Token Token;
 		
@@ -18,17 +26,14 @@ typedef struct Token Token;
 Token *CreateToken(char * ts, char * type) 
 {
 	/*if the token linked list is empty*/
-	
-	
-	
 	if (head==NULL)
 	{
 		Token *newToken=(struct Token*)malloc(sizeof(Token));
-       	newToken->data=ts;
+       		newToken->data=ts;
 		newToken->tokenType=type;	
 		newToken->next=NULL;
 		head=newToken;
-       	return head;
+       		return head;
 	}
 	
 	/* If the token list has at least 1 or more things in it */
@@ -87,6 +92,8 @@ void DestroyToken( Token * tk )
 
 }
 
+/*Prints the contens of the token linked list */
+
 void printAllTokens()
 {
 	Token *i=head;
@@ -104,6 +111,7 @@ char *GetNextToken( Token * tk )
   return NULL;
 }
 
+/* Creates a new token in the linked list, given a substring location, an input and the token type */
 void createNewString (char* input, char* type, int y, int z)
 {
 	/* Gets the start of the token */	
@@ -132,11 +140,11 @@ void createNewString (char* input, char* type, int y, int z)
 		CreateToken(" ",type);
 		return;
 	}
-	
 	CreateToken(NewToken,type);
 	
 }
 
+/* Populates the token list during the initial run */
 void populateTokenList(char* input)
 {
 	/* indicates how many times to iterate */
@@ -205,7 +213,8 @@ void populateTokenList(char* input)
 				createNewString(input,"Octal",y,z);
 				z=y;
 				}
-				else if (r!=0){			
+				else if (r!=0)
+				{			
 					y = y+1;
 					while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y])))
 					{
