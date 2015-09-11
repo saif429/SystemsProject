@@ -164,8 +164,8 @@ void populateTokenList(char* input)
 	/*Hexadecimal eg. 0x */
 	/*Octal eg. 0532 */
 		if (input[z]=='0')
-		{ 
-		
+		{
+
 			/*for finding hexadecimal characters*/
 			if(input[z+1]=='x' || input[z+1] == 'X')
 			{  
@@ -280,6 +280,7 @@ void populateTokenList(char* input)
 				
 			}
 		}
+		/*for words */
 		else if (isalpha(input[z]))
 		{
 			y = z+1;
@@ -387,11 +388,152 @@ void populateTokenList(char* input)
 		}
 		
 		
+		switch (input[z])
+		{
+			case '+' :
+				y=z+1;
+				createNewString(input,"Addition",y,z);
+				z=y;
+				break;
+			case '-' :
+				y=z+1;
+				createNewString(input,"Subtraction",y,z);
+				z=y;
+				break;
+			case '*' :
+				y=z+1;
+				createNewString(input,"Multiplication",y,z);
+				z=y;
+				break;
+			case '%' :
+				y=z+1;
+				createNewString(input,"Modulus",y,z);
+				z=y;
+				break;
+			case '=' :
+				y=z+1;
+				createNewString(input,"Assignment",y,z);
+				z=y;
+				break;
+			case '>' :
+				y=z+1;
+				createNewString(input,"Greater Than",y,z);
+				z=y;
+				break;
+			case '<' :
+				y=z+1;
+				createNewString(input,"Less Than",y,z);
+				z=y;
+				break;
+			case '|' :
+				y=z+1;
+				createNewString(input,"Bitwise Inclusive Or / Line",y,z);
+				z=y;
+				break;
+			case '&' :
+				y=z+1;
+				createNewString(input,"Bitwise And / Ampersand",y,z);
+				z=y;
+				break;
+			case '^' :
+				y=z+1;
+				createNewString(input,"Exclusive Or / Carret",y,z);
+				z=y;
+				break;
+			case '?' :
+				y=z+1;
+				createNewString(input,"Question Mark",y,z);
+				z=y;
+				break;
+			case ':' :
+				y=z+1;
+				createNewString(input,"Conditional Expression / Colon",y,z);
+				z=y;
+				break;
+			case ',' :
+				y=z+1;
+				createNewString(input,"Comma",y,z);
+				z=y;	
+				break;
+			case ';' :
+				y=z+1;
+				createNewString(input,"End of Expression / Semi Colon",y,z);
+				z=y;
+				break;
+			case '/' :
+				y=z+1;
+				createNewString(input,"Slash",y,z);
+				z=y;
+				break;
+			case '\\' :
+				y=z+1;
+				createNewString(input,"Backslash",y,z);
+				z=y;
+				break;
+			case '[' :
+				y=z+1;
+				createNewString(input,"Left Brace",y,z);
+				z=y;
+				break;
+			case ']' :
+				y=z+1;
+				createNewString(input,"Right Brace",y,z);
+				z=y;
+				break;
+			case '{' :
+				y=z+1;
+				createNewString(input,"Left Bracket",y,z);
+				z=y;
+				break;
+			case '}' :
+				y=z+1;
+				createNewString(input,"Right Bracket",y,z);
+				z=y;
+				break;
+			case '_' :
+				y=z+1;
+				createNewString(input,"Underscore",y,z);
+				z=y;
+				break;
+			case '#' :
+				y=z+1;
+				createNewString(input,"Hash",y,z);
+				z=y;
+				break;
+			case '!' :
+				y=z+1;
+				createNewString(input,"Not / Exclamation",y,z);
+				z=y;
+				break;
+			case '`' :
+				y=z+1;
+				createNewString(input,"Tilde",y,z);
+				z=y;
+				break;
+			case '(' :
+				y=z+1;
+				createNewString(input,"Left Parenthesis",y,z);
+				z=y;
+				break;
+			case ')' :
+				y=z+1;
+				createNewString(input,"Right Parenthesis",y,z);
+				z=y;
+				break;
+				
+			default :
+				z++;
+				continue;
+				
+			
+		}
+
 		
 		if (input[z]==' ')
 		{
 			z++;
 		}
+
 		
 		
 	}
