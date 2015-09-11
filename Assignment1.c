@@ -157,15 +157,12 @@ void populateTokenList(char* input)
 	int y = 0;  
 	
 	while (z < i)
-	{ // go through the entire array until it hits NULL character
-	
-		
+	{	
 	/*This if statement handles tokens that start with 0 */
 	/*Hexadecimal eg. 0x */
 	/*Octal eg. 0532 */
 		if (input[z]=='0')
 		{
-
 			/*for finding hexadecimal characters*/
 			if(input[z+1]=='x' || input[z+1] == 'X')
 			{  
@@ -173,13 +170,13 @@ void populateTokenList(char* input)
 				y = z+2; 
 				while (isalnum(input[y]) && input[y]<'g')
 				{
-						y++; // keeps count of how many indexes are part of the token.
+					y++;
 	
-						if (input[y] == '\0')
-						{ // if it hits the end of the string, this adds on the null character index.
-							y++;
-							break;
-						}
+					if (input[y] == '\0')
+					{ 
+						y++;
+						break;
+					}
 				}
 					
 				createNewString(input,"Hexadecimal",y,z);
@@ -190,29 +187,33 @@ void populateTokenList(char* input)
 			/*checks octal */
 			else if (isdigit(input[z+1]) && (input[z+1]-'0')<=7)
 			{
-			int r = 0;
+				int r = 0;
 				y=z+1;
+				
 				while (isdigit(input[y]) && input[y]-'0'<=7)
 				{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
 						
-						if (input[y] == '.'){
+						if (input[y] == '.')
+						{
 						r++;
 						}
 	
 						/* if the end of string is hit, add 1 to y in order to account for the null character index */
-						if (input[y] == '\0')
+						else if (input[y] == '\0')
 						{ 
 							y++;
 							break;
 						}
 				}
 				
-				if (r == 0){
+				if (r == 0)
+				{
 				createNewString(input,"Octal",y,z);
 				z=y;
 				}
+				
 				else if (r!=0)
 				{			
 					y = y+1;
@@ -228,10 +229,9 @@ void populateTokenList(char* input)
 							break;
 						}
 						
-						if (input[y] == '0'){
-							if (input[y+1] == 'X' || input[y+1] == 'x'){
-								break;
-							}
+						if (input[y] == '0' && (input[y+1] == 'X' || input[y+1] == 'x'))
+						{
+							break;
 						}
 				}
 				
@@ -241,31 +241,29 @@ void populateTokenList(char* input)
 			}	
 			
 			}
-			/*  added E for floating point stuff" */
 			
+			/*  added E for floating point stuff" */	
 			else if(input[z+1]=='.' || input[z+1]=='e' || input[z+1]=='E')
 			{
 				y=z+2;
 				
 				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y+1])))
 				{
-						/*keeps count of how many indexes have been iterated through*/
-						y++; 
+					/*keeps count of how many indexes have been iterated through*/
+					y++; 
 	
-						/* if the end of string is hit, add 1 to y in order to account for the null character index */
+					/* if the end of string is hit, add 1 to y in order to account for the null character index */
 						
-						if (input[y] == '\0')
-						{ 
-							y++;
+					if (input[y] == '\0')
+					{ 
+						y++;
 							break;
-						}
+					}
 						
-						if (input[y] == '0')
-						{
-							if (input[y+1] == 'X' || input[y+1] == 'x'){
-								break;
-							}
-						}
+					if (input[y] == '0'&& (input[y+1] == 'X' || input[y+1] == 'x'))
+					{
+						break;
+					}
 				}
 				
 				createNewString(input,"Floating Point",y,z);
@@ -284,11 +282,13 @@ void populateTokenList(char* input)
 		else if (isalpha(input[z]))
 		{
 			y = z+1;
+			
 			while (isalpha(input[y]))
 			{
 				y++;
+				
 				if (input[y] == '\0')
-				{ // if it hits the end of the string, this adds on the null character index.
+				{ 
 					y++;
 					break;
 				}
@@ -306,13 +306,11 @@ void populateTokenList(char* input)
 			while (isdigit(input[y])) // in this statement we need to have something for floating point
 			{
 				
-				if (input[y]=='0')
+				if (input[y]=='0' && (input[y+1]=='x' || input[y+1] == 'X'))
 				{
-					if (input[y+1]=='x' || input[y+1] == 'X')
-					{
-						break;
-					}
+					break;
 				}
+				
 				y++;
 				
 				/*For floating point and floating point with E*/
@@ -321,38 +319,39 @@ void populateTokenList(char* input)
 					h++;
 				}
 				
-				if (input[y] == '\0')
+				else if (input[y] == '\0')
 				{ // if it hits the end of the string, this adds on the null character index.
 					y++;
 					break;
 				}
 
 			}
+			
 			if (h == 0)
 			{
-			createNewString(input,"Decimal",y,z);
-			z=y;
+				createNewString(input,"Decimal",y,z);
+				z=y;
 			}
+			
 			else if (h!=0)
 			{			
-			y = y+1;
+				y = y+1;
 				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y+1])))
 				{
-						/*keeps count of how many indexes have been iterated through*/
-						y++; 
+					/*keeps count of how many indexes have been iterated through*/
+					y++; 
 	
-						/* if the end of string is hit, add 1 to y in order to account for the null character index */
-						if (input[y] == '\0')
-						{ 
-							y++;
-							break;
-						}
+					/* if the end of string is hit, add 1 to y in order to account for the null character index */
+					if (input[y] == '\0')
+					{ 
+						y++;
+						break;
+					}
 						
-						if (input[y] == '0'){
-							if (input[y+1] == 'X' || input[y+1] == 'x'){
-								break;
-							}
-						}
+					if (input[y] == '0' && (input[y+1] == 'X' || input[y+1] == 'x'))
+					{
+						break;
+					}
 				}
 				
 				createNewString(input,"Floating Point",y,z);
@@ -364,24 +363,23 @@ void populateTokenList(char* input)
 		else if (isdigit(input[z]) && (input[z+1]=='.' || input[z+1]=='E' || input[z+1]=='e'))
 		{
 			y=z+2;
-				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y+1])))
-				{
-						/*keeps count of how many indexes have been iterated through*/
-						y++; 
+			while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y+1])))
+			{
+				/*keeps count of how many indexes have been iterated through*/
+				y++; 
 	
-						/* if the end of string is hit, add 1 to y in order to account for the null character index */
-						if (input[y] == '\0')
-						{ 
-							y++;
-							break;
-						}
-						
-						if (input[y] == '0'){
-							if (input[y+1] == 'X' || input[y+1] == 'x'){
-								break;
-							}
-						}
+				/* if the end of string is hit, add 1 to y in order to account for the null character index */
+				if (input[y] == '\0')
+				{ 
+					y++;
+					break;
 				}
+						
+				else if (input[y] == '0' && (input[y+1] == 'X' || input[y+1] == 'x'))
+				{
+					break;
+				}
+			}
 				
 				createNewString(input,"Floating Point",y,z);
 				z=y;
@@ -524,17 +522,7 @@ void populateTokenList(char* input)
 			default :
 				z++;
 				break;
-				
-				
-			
 		}
-		/*if (input[z]==' ')
-		{
-			z++;
-		}
-		*/
-		
-		
 	}
 }
 
