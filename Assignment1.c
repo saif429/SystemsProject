@@ -232,22 +232,27 @@ void populateTokenList(char* input)
 			}	
 			
 			}
-			else if(input[z+1]=='.')
+			/*  added E for floating point stuff" */
+			
+			else if(input[z+1]=='.' || input[z+1]=='e' || input[z+1]=='E')
 			{
 				y=z+2;
-				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y])))
+				
+				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y+1])))
 				{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
 	
 						/* if the end of string is hit, add 1 to y in order to account for the null character index */
+						
 						if (input[y] == '\0')
 						{ 
 							y++;
 							break;
 						}
 						
-						if (input[y] == '0'){
+						if (input[y] == '0')
+						{
 							if (input[y+1] == 'X' || input[y+1] == 'x'){
 								break;
 							}
@@ -299,7 +304,9 @@ void populateTokenList(char* input)
 				}
 				y++;
 				
-				if (input[y] == '.'){
+				/*For floating point and floating point with E*/
+				if (input[y] == '.' || input[y] == 'E' || input[y] == 'e' )
+				{
 					h++;
 				}
 				
@@ -310,13 +317,15 @@ void populateTokenList(char* input)
 				}
 
 			}
-			if (h == 0){
+			if (h == 0)
+			{
 			createNewString(input,"Decimal",y,z);
 			z=y;
 			}
-			else if (h!=0){			
+			else if (h!=0)
+			{			
 			y = y+1;
-				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y])))
+				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y+1])))
 				{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
@@ -340,9 +349,11 @@ void populateTokenList(char* input)
 				continue;
 			}	
 		}
-		else if (isdigit(input[z]) && input[z+1]=='.'){
+		/*added e for floating point*/
+		else if (isdigit(input[z]) && (input[z+1]=='.' || input[z+1]=='E' || input[z+1]=='e'))
+		{
 			y=z+2;
-				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y])))
+				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y+1])))
 				{
 						/*keeps count of how many indexes have been iterated through*/
 						y++; 
