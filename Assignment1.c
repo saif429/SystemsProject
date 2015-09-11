@@ -295,6 +295,7 @@ void populateTokenList(char* input)
 			}
 			createNewString(input,"word",y,z);
 			z=y;
+			continue;
 			
 		}
 		/*Does regular digits*/
