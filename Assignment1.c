@@ -520,20 +520,18 @@ void populateTokenList(char* input)
 				createNewString(input,"Right Parenthesis",y,z);
 				z=y;
 				break;
-				
 			default :
 				z++;
-				continue;
+				break;
+				
 				
 			
 		}
-
-		
-		if (input[z]==' ')
+		/*if (input[z]==' ')
 		{
 			z++;
 		}
-
+		*/
 		
 		
 	}
@@ -542,8 +540,14 @@ void populateTokenList(char* input)
 /* The main function */
 int main(int argc, char **argv) 
 {
+	if (argv[1]==NULL)
+	{
+		printf("%s\n", "No Argument");
+		return 0;
+	}
 	
 	populateTokenList(argv[1]);	
+	
 	printAllTokens();
 	
   return 0;
