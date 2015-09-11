@@ -387,7 +387,7 @@ void populateTokenList(char* input)
 				continue;
 		}
 		
-		
+		/* Switch Statement for other characters */
 		switch (input[z])
 		{
 			case '+' :
@@ -540,7 +540,7 @@ void populateTokenList(char* input)
 /* The main function */
 int main(int argc, char **argv) 
 {
-	if (argv[1]==NULL)
+	if (argv[1]==NULL || strlen(argv[1])==0)
 	{
 		printf("%s\n", "No Argument");
 		return 0;
