@@ -4,6 +4,7 @@ Tokenizer For Systems Programming
 by Saif and Cal
 
 This is a tokenizer written in C that can discern between words, hexadecimal, octal, floating point, and various things like brackets and other symbols. This is the first Systems Programming assignment in the class.
+This project uses a linked list implementation which allows easy storage of tokens and allows allows them to be modified later on without issue.
 
 Steps to get it to run
 
