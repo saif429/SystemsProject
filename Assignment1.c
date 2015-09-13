@@ -18,93 +18,22 @@ struct Token
 	char *tokenType;	
 	struct Token *next;
 }
-*head;
 
 typedef struct Token Token;
 		
 
 Token *CreateToken(char * ts, char * type) 
 {
-	/*if the token linked list is empty*/
-	if (head==NULL)
-	{
-		Token *newToken=(struct Token*)malloc(sizeof(Token));
-       		newToken->data=ts;
-		newToken->tokenType=type;	
-		newToken->next=NULL;
-		head=newToken;
-       		return head;
-	}
-	
-	/* If the token list has at least 1 or more things in it */
-	else
-	{
-		/*Iterator*/
-		Token *iter=head;
-	
-		while (iter->next!=NULL)
-		{
-			iter=iter->next;
-		}
-		
-		Token *newToken=(struct Token*)malloc(sizeof(Token));
-       		newToken->data=ts;		
-		newToken->tokenType=type;
-       		iter->next=newToken;
-		newToken->next=NULL;
-	
-       		return newToken;
-	}
-	
+	return NULL;
 }
 
 /*Destroys the linked list entirely, probably not the right way to do this */
 void DestroyToken( Token * tk ) 
 {
-   
-   Token *iterator=head;
-   /*In case the linked list is empty*/
-   if (iterator==NULL)
-   {
-   	return;
-   }
-   
-   /*in case there is only one thing in the linked list*/
-   else if (iterator->next==NULL)
-   {
-	free(tk);
-	iterator->next=NULL;
-   }
-   
-   /*for all other cases*/
-   else
-   {
-	   while (iterator->next!=NULL)
-	   {
-		   if (strcmp(iterator->next->data,tk->data)==0)
-		   {
-			   iterator->next=tk->next;
-			   free(tk);
-		   }
-		   iterator=iterator->next;
-	   }
-   }
 
 }
 
-/*Prints the contens of the token linked list */
 
-void printAllTokens()
-{
-	Token *i=head;
-	while (i!=NULL)
-	{	
-		printf("%s",i->tokenType);
-		printf(" %s\n",i->data);
-		
-		i=i->next;
-	}
-}
 
 char *GetNextToken( Token * tk ) 
 {
@@ -137,10 +66,11 @@ void createNewString (char* input, char* type, int y, int z)
 	}	
 	if (strcmp(type,"Malformed Token")==0)
 	{
-		CreateToken(" ",type);
-		return;
+		printf("%s", "Malformed Token");
 	}
-	CreateToken(NewToken,type);
+	printf("%s",NewToken->tokenType);
+	printf(" %s\n", NewTokent->data);
+	free(NewToken);
 	
 }
 
