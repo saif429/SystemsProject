@@ -68,8 +68,8 @@ void createNewString (char* input, char* type, int y, int z)
 	{
 		printf("%s", "Malformed Token");
 	}
-	printf("%s",NewToken->tokenType);
-	printf(" %s\n", NewTokent->data);
+	printf("%s",type);
+	printf(" %s\n", NewToken);
 	free(NewToken);
 	
 }
