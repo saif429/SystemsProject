@@ -387,6 +387,71 @@ void populateTokenList(char* input)
 		}
 		
 		/* Switch Statement for other characters */
+		if (input[z]=='+' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Plus Equals",y,z);
+			z=y;
+			break;
+		}
+		else if (input[z]=='&' && input[z+1]=='&')
+		{
+			y=z+2;
+			createNewString(input,"Logical And",y,z);
+			z=y;
+			break;
+		}
+		else if (input[z]=='-' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Minus Equals",y,z);
+			z=y;
+			break;
+		}
+		else if (input[z]=='=' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Comparison",y,z);
+			z=y;
+			break;
+		}
+		else if (input[z]=='*' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Multiplication Assignment",y,z);
+			z=y;
+			break;
+		}
+		else if (input[z]=='/' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Division Assignment",y,z);
+			z=y;
+			break;
+		}
+		else if (input[z]=='%' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Remainder Assignment",y,z);
+			z=y;
+			break;
+		}
+		else if (input[z]=='&' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Bitwise And Assignment",y,z);
+			z=y;
+			break;
+		}
+		else if (input[z]=='^' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Bitwise Exclusive Or Assignment",y,z);
+			z=y;
+			break;
+		}
+		
+		
 		switch (input[z])
 		{
 			case '+' :
