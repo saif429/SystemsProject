@@ -508,6 +508,20 @@ void populateTokenList(char* input)
 			z=y;
 			continue;
 		}
+		else if (input[z]=='?' && input[z+1]=='-')
+		{
+			y=z+2;
+			createNewString(input,"Conditional Expression",y,z);
+			z=y;
+			continue;
+		}
+		else if (input[z]=='-' && input[z+1]=='>')
+		{
+			y=z+2;
+			createNewString(input,"Structure Pointer",y,z);
+			z=y;
+			continue;
+		}
 		
 		
 		
