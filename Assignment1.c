@@ -12,33 +12,6 @@ This was done so that we could store the tokens easily and then
 be able to easily find a token or remove a token if needed
 */
 
-struct Token 
-{
-	char *data;
-	char *tokenType;	
-	struct Token *next;
-}
-
-typedef struct Token Token;
-		
-
-Token *CreateToken(char * ts, char * type) 
-{
-	return NULL;
-}
-
-/*Destroys the linked list entirely, probably not the right way to do this */
-void DestroyToken( Token * tk ) 
-{
-
-}
-
-
-
-char *GetNextToken( Token * tk ) 
-{
-  return NULL;
-}
 
 /* Creates a new token in the linked list, given a substring location, an input and the token type */
 void createNewString (char* input, char* type, int y, int z)
@@ -604,8 +577,7 @@ int main(int argc, char **argv)
 	}
 	
 	populateTokenList(argv[1]);	
-	
-	printAllTokens();
+
 	
   return 0;
 }
