@@ -387,7 +387,23 @@ void populateTokenList(char* input)
 		}
 		
 		/* Switch Statement for other characters */
-		if (input[z]=='+' && input[z+1]=='=')
+		if (input[z]=='<' && input[z+1]=='<' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Left Shift and Assignment",y,z);
+			z=y;
+			continue;
+		}
+		else if (input[z]=='>' && input[z+1]=='>' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Right Shift and Assignment",y,z);
+			z=y;
+			continue;
+		}
+		
+		
+		else if (input[z]=='+' && input[z+1]=='=')
 		{
 			y=z+2;
 			createNewString(input,"Plus Equals",y,z);
@@ -450,6 +466,49 @@ void populateTokenList(char* input)
 			z=y;
 			continue;
 		}
+		else if (input[z]=='|' && input[z+1]=='=')
+		{
+			y=z+2;
+			createNewString(input,"Bitwise Inclusive Or Assignment",y,z);
+			z=y;
+			continue;
+		}
+		else if (input[z]=='|' && input[z+1]=='|')
+		{
+			y=z+2;
+			createNewString(input,"Logical Or",y,z);
+			z=y;
+			continue;
+		}
+		else if (input[z]=='<' && input[z+1]=='<')
+		{
+			y=z+2;
+			createNewString(input,"Left Shift",y,z);
+			z=y;
+			continue;
+		}
+		else if (input[z]=='>' && input[z+1]=='>')
+		{
+			y=z+2;
+			createNewString(input,"Right Shift",y,z);
+			z=y;
+			continue;
+		}
+		else if (input[z]=='-' && input[z+1]=='-')
+		{
+			y=z+2;
+			createNewString(input,"Decrement",y,z);
+			z=y;
+			continue;
+		}
+		else if (input[z]=='+' && input[z+1]=='+')
+		{
+			y=z+2;
+			createNewString(input,"Increment",y,z);
+			z=y;
+			continue;
+		}
+		
 		
 		
 		switch (input[z])
