@@ -1,53 +1,48 @@
-/*Tokenizer project using Linked List Structure to hold data*/
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
-/*
-Token Structure is based off a linked list
-This was done so that we could store the tokens easily and then
-be able to easily find a token or remove a token if needed
-*/
-
-
-/* Creates a new token in the linked list, given a substring location, an input and the token type */
-void createNewString (char* input, char* type, int y, int z)
+struct Token 
 {
-	/* Gets the start of the token */	
+	char *data;
+	char *tokenType;	
+};
+
+typedef struct Token Token;
+
+Token *Create(char * input, char * type, int y, int z) 
+{
+
 	int TokenStart = z;
-	/*Gets the length of the token */
 	int TokenLength = y-z;
-				
-	/*Creates a string for just the token */
-	/*Fixes a null termination bug */
 	char *NewToken=malloc((TokenLength+1)*sizeof(char*));
-	/*removing +1 fixes a null termiantion thing*/
 	NewToken[TokenLength]='\0';
 	
 				
-	/* Temporary variable simply used to add the token to the NewToken string */
 	int b = 0;
-				
-	/*Loops through the input string, and adds the token to the NewToken string*/
 	for (TokenStart=z; TokenStart<y; TokenStart++)
 	{
 		NewToken[b] = input[TokenStart];
 		b++;
 	}	
-	if (strcmp(type,"Malformed Token")==0)
-	{
-		printf("%s", "Malformed Token");
-	}
-	printf("%s",type);
-	printf(" %s\n", NewToken);
-	free(NewToken);
 	
+		Token *newToken=(struct Token*)malloc(sizeof(Token));
+       	newToken->data=NewToken;
+		newToken->tokenType=type;
+		return newToken;
+
 }
 
-/* Populates the token list during the initial run */
+void DestroyToken( Token * tk ){
+	free(tk);
+}
+
+char *GetNextToken( Token * tk ) 
+{
+  return NULL;
+}
+
 void populateTokenList(char* input)
 {
 	/* indicates how many times to iterate */
@@ -82,7 +77,10 @@ void populateTokenList(char* input)
 					}
 				}
 					
-				createNewString(input,"Hexadecimal",y,z);
+				Token *hextoken = Create(input,"Hexadecimal",y,z);
+				printf("%s ", hextoken->tokenType);
+				printf("%s\n", hextoken->data);
+				DestroyToken(hextoken);
 				z=y;
 				continue;
 					
@@ -113,7 +111,11 @@ void populateTokenList(char* input)
 				
 				if (r == 0)
 				{
-				createNewString(input,"Octal",y,z);
+				Token *octaltoken = Create(input,"Octal",y,z);
+				printf("%s ", octaltoken->tokenType);
+				printf("%s\n", octaltoken->data);
+				DestroyToken(octaltoken);
+				
 				z=y;
 				}
 				
@@ -138,7 +140,10 @@ void populateTokenList(char* input)
 						}
 				}
 				
-				createNewString(input,"Floating Point",y,z);
+				Token *floatingpointtoken = Create(input,"Floating Point",y,z);
+				printf("%s ", floatingpointtoken->tokenType);
+				printf("%s\n", floatingpointtoken->data);
+				DestroyToken(floatingpointtoken);
 				z=y;
 				continue;
 			}	
@@ -169,13 +174,19 @@ void populateTokenList(char* input)
 					}
 				}
 				
-				createNewString(input,"Floating Point",y,z);
+				Token *floatingpointtoken = Create(input,"Floating Point",y,z);
+				printf("%s ", floatingpointtoken->tokenType);
+				printf("%s\n", floatingpointtoken->data);
+				DestroyToken(floatingpointtoken);
 				z=y;
 				continue;
 			}
 			else
 			{
-				createNewString(input,"Malformed Token",0,0);
+				Token *malformedtoken = Create(input,"Malformed Token",0,0);
+				printf("%s ", malformedtoken->tokenType);
+				printf("%s\n", malformedtoken->data);
+				DestroyToken(malformedtoken);
 				z=y;
 				z+=2;
 				
@@ -196,7 +207,10 @@ void populateTokenList(char* input)
 					break;
 				}
 			}
-			createNewString(input,"word",y,z);
+			Token *word = Create(input,"word",y,z);
+			printf("%s ", word->tokenType);
+			printf("%s\n", word->data);
+			DestroyToken(word);
 			z=y;
 			continue;
 			
@@ -232,7 +246,10 @@ void populateTokenList(char* input)
 			
 			if (h == 0)
 			{
-				createNewString(input,"Decimal",y,z);
+				Token *decimaltoken = Create(input,"Decimal",y,z);
+				printf("%s ", decimaltoken->tokenType);
+				printf("%s\n", decimaltoken->data);
+				DestroyToken(decimaltoken);
 				z=y;
 			}
 			
@@ -257,7 +274,10 @@ void populateTokenList(char* input)
 					}
 				}
 				
-				createNewString(input,"Floating Point",y,z);
+				Token *floatingpointtoken = Create(input,"Floating Point",y,z);
+				printf("%s ", floatingpointtoken->tokenType);
+				printf("%s\n", floatingpointtoken->data);
+				DestroyToken(floatingpointtoken);
 				z=y;
 				continue;
 			}	
@@ -284,7 +304,10 @@ void populateTokenList(char* input)
 				}
 			}
 				
-				createNewString(input,"Floating Point",y,z);
+				Token *floatingpointtoken = Create(input,"Floating Point",y,z);
+				printf("%s ", floatingpointtoken->tokenType);
+				printf("%s\n", floatingpointtoken->data);
+				DestroyToken(floatingpointtoken);
 				z=y;
 				continue;
 		}
@@ -293,14 +316,20 @@ void populateTokenList(char* input)
 		if (input[z]=='<' && input[z+1]=='<' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Left Shift and Assignment",y,z);
+			Token *specialtoken = Create(input,"Left Shift and Assignment",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='>' && input[z+1]=='>' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Right Shift and Assignment",y,z);
+			Token *specialtoken = Create(input,"Right Shift and Assignment",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
@@ -309,119 +338,170 @@ void populateTokenList(char* input)
 		else if (input[z]=='+' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Plus Equals",y,z);
+			Token *specialtoken = Create(input,"Plus Equals",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='&' && input[z+1]=='&')
 		{
 			y=z+2;
-			createNewString(input,"Logical And",y,z);
+			Token *specialtoken = Create(input,"Logical And",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='-' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Minus Equals",y,z);
+			Token *specialtoken = Create(input,"Minus Equals",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='=' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Comparison",y,z);
+			Token *specialtoken = Create(input,"Comparison",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='*' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Multiplication Assignment",y,z);
+			Token *specialtoken = Create(input,"Multiplication Assignment",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='/' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Division Assignment",y,z);
+			Token *specialtoken = Create(input,"Division Assignment",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='%' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Remainder Assignment",y,z);
+			Token *specialtoken = Create(input,"Remainder Assignment",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='&' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Bitwise And Assignment",y,z);
+			Token *specialtoken = Create(input,"Bitwise And Assignment",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='^' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Bitwise Exclusive Or Assignment",y,z);
+			Token *specialtoken = Create(input,"Bitwise Exclusive Or Assignment",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='|' && input[z+1]=='=')
 		{
 			y=z+2;
-			createNewString(input,"Bitwise Inclusive Or Assignment",y,z);
+			Token *specialtoken = Create(input,"Bitwise Inclusive Or Assignment",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);			
 			z=y;
 			continue;
 		}
 		else if (input[z]=='|' && input[z+1]=='|')
 		{
 			y=z+2;
-			createNewString(input,"Logical Or",y,z);
+			Token *specialtoken = Create(input,"Logical Or",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);	
 			z=y;
 			continue;
 		}
 		else if (input[z]=='<' && input[z+1]=='<')
 		{
 			y=z+2;
-			createNewString(input,"Left Shift",y,z);
+			Token *specialtoken = Create(input,"Left Shift",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);	
 			z=y;
 			continue;
 		}
 		else if (input[z]=='>' && input[z+1]=='>')
 		{
 			y=z+2;
-			createNewString(input,"Right Shift",y,z);
+			Token *specialtoken = Create(input,"Right Shift",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);	
 			z=y;
 			continue;
 		}
 		else if (input[z]=='-' && input[z+1]=='-')
 		{
 			y=z+2;
-			createNewString(input,"Decrement",y,z);
+			Token *specialtoken = Create(input,"Decrement",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);	
 			z=y;
 			continue;
 		}
 		else if (input[z]=='+' && input[z+1]=='+')
 		{
 			y=z+2;
-			createNewString(input,"Increment",y,z);
+			Token *specialtoken = Create(input,"Increment",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='?' && input[z+1]=='-')
 		{
 			y=z+2;
-			createNewString(input,"Conditional Expression",y,z);
+			Token *specialtoken = Create(input,"Conditional Expression",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
 		else if (input[z]=='-' && input[z+1]=='>')
 		{
 			y=z+2;
-			createNewString(input,"Structure Pointer",y,z);
+			Token *specialtoken = Create(input,"Structure Pointer",y,z);
+			printf("%s ", specialtoken->tokenType);
+			printf("%s\n", specialtoken->data);
+			DestroyToken(specialtoken);
 			z=y;
 			continue;
 		}
@@ -432,132 +512,210 @@ void populateTokenList(char* input)
 		{
 			case '+' :
 				y=z+1;
-				createNewString(input,"Addition",y,z);
+				Token *specialtokenaddition = Create(input,"Addition",y,z);
+				printf("%s ", specialtokenaddition->tokenType);
+				printf("%s\n", specialtokenaddition->data);
+				DestroyToken(specialtokenaddition);
 				z=y;
 				break;
 			case '-' :
 				y=z+1;
-				createNewString(input,"Subtraction",y,z);
+				Token *specialtokensubtraction = Create(input,"Subtraction",y,z);
+				printf("%s ", specialtokensubtraction->tokenType);
+				printf("%s\n", specialtokensubtraction->data);
+				DestroyToken(specialtokensubtraction);
 				z=y;
 				break;
 			case '*' :
 				y=z+1;
-				createNewString(input,"Multiplication",y,z);
+				Token *specialtokenmultiplication = Create(input,"Multiplication",y,z);
+				printf("%s ", specialtokenmultiplication->tokenType);
+				printf("%s\n", specialtokenmultiplication->data);
+				DestroyToken(specialtokenmultiplication);
 				z=y;
 				break;
 			case '%' :
 				y=z+1;
-				createNewString(input,"Modulus",y,z);
+				Token *specialtokenmodulus = Create(input,"Modulus",y,z);
+				printf("%s ", specialtokenmodulus->tokenType);
+				printf("%s\n", specialtokenmodulus->data);
+				DestroyToken(specialtokenmodulus);
 				z=y;
 				break;
 			case '=' :
 				y=z+1;
-				createNewString(input,"Assignment",y,z);
+				Token *specialtoken = Create(input,"Assignment",y,z);
+				printf("%s ", specialtoken->tokenType);
+				printf("%s\n", specialtoken->data);
+				DestroyToken(specialtoken);
 				z=y;
 				break;
 			case '>' :
 				y=z+1;
-				createNewString(input,"Greater Than",y,z);
+				Token *specialtokengreaterthan = Create(input,"Greater Than",y,z);
+				printf("%s ", specialtokengreaterthan->tokenType);
+				printf("%s\n", specialtokengreaterthan->data);
+				DestroyToken(specialtokengreaterthan);
 				z=y;
 				break;
 			case '<' :
 				y=z+1;
-				createNewString(input,"Less Than",y,z);
+				Token *specialtokenlessthan = Create(input,"Less Than",y,z);
+				printf("%s ", specialtokenlessthan->tokenType);
+				printf("%s\n", specialtokenlessthan->data);
+				DestroyToken(specialtokenlessthan);
 				z=y;
 				break;
 			case '|' :
 				y=z+1;
-				createNewString(input,"Bitwise Inclusive Or / Line",y,z);
+				Token *specialtokeninclusiveor = Create(input,"Bitwise Inclusive Or / Line",y,z);
+				printf("%s ", specialtokeninclusiveor->tokenType);
+				printf("%s\n", specialtokeninclusiveor->data);
+				DestroyToken(specialtokeninclusiveor);
 				z=y;
 				break;
 			case '&' :
 				y=z+1;
-				createNewString(input,"Bitwise And / Ampersand",y,z);
+				Token *specialtokenand = Create(input,"Bitwise And / Ampersand",y,z);
+				printf("%s ", specialtokenand->tokenType);
+				printf("%s\n", specialtokenand->data);
+				DestroyToken(specialtokenand);
 				z=y;
 				break;
 			case '^' :
 				y=z+1;
-				createNewString(input,"Exclusive Or / Carret",y,z);
+				Token *specialtokenexclusiveor = Create(input,"Exclusive Or / Carret",y,z);
+				printf("%s ", specialtokenexclusiveor->tokenType);
+				printf("%s\n", specialtokenexclusiveor->data);
+				DestroyToken(specialtokenexclusiveor);
 				z=y;
 				break;
 			case '?' :
 				y=z+1;
-				createNewString(input,"Question Mark",y,z);
+				Token *specialtokenquestion = Create(input,"Question Mark",y,z);
+				printf("%s ", specialtokenquestion->tokenType);
+				printf("%s\n", specialtokenquestion->data);
+				DestroyToken(specialtokenquestion);
 				z=y;
 				break;
 			case ':' :
 				y=z+1;
-				createNewString(input,"Conditional Expression / Colon",y,z);
+				Token *specialtokencolon = Create(input,"Conditional Expression / Colon",y,z);
+				printf("%s ", specialtokencolon->tokenType);
+				printf("%s\n", specialtokencolon->data);
+				DestroyToken(specialtokencolon);
 				z=y;
 				break;
 			case ',' :
 				y=z+1;
-				createNewString(input,"Comma",y,z);
+				Token *specialtokencomma = Create(input,"Comma",y,z);
+				printf("%s ", specialtokencomma->tokenType);
+				printf("%s\n", specialtokencomma->data);
+				DestroyToken(specialtokencomma);
 				z=y;	
 				break;
 			case ';' :
 				y=z+1;
-				createNewString(input,"End of Expression / Semi Colon",y,z);
+				Token *specialtokensemicolon = Create(input,"End of Expression / Semi Colon",y,z);
+				printf("%s ", specialtokensemicolon->tokenType);
+				printf("%s\n", specialtokensemicolon->data);
+				DestroyToken(specialtokensemicolon);
 				z=y;
 				break;
 			case '/' :
 				y=z+1;
-				createNewString(input,"Slash",y,z);
+				Token *specialtokenslash = Create(input,"Slash",y,z);
+				printf("%s ", specialtokenslash->tokenType);
+				printf("%s\n", specialtokenslash->data);
+				DestroyToken(specialtokenslash);
 				z=y;
 				break;
 			case '\\' :
 				y=z+1;
-				createNewString(input,"Backslash",y,z);
+				Token *specialtokenbackslash = Create(input,"Backslash",y,z);
+				printf("%s ", specialtokenbackslash->tokenType);
+				printf("%s\n", specialtokenbackslash->data);
+				DestroyToken(specialtokenbackslash);
 				z=y;
 				break;
 			case '[' :
 				y=z+1;
-				createNewString(input,"Left Brace",y,z);
+				Token *specialtokenleftbrace = Create(input,"Left Brace",y,z);
+				printf("%s ", specialtokenleftbrace->tokenType);
+				printf("%s\n", specialtokenleftbrace->data);
+				DestroyToken(specialtokenleftbrace);
 				z=y;
 				break;
 			case ']' :
 				y=z+1;
-				createNewString(input,"Right Brace",y,z);
+				Token *specialtokenrightbrace = Create(input,"Right Brace",y,z);
+				printf("%s ", specialtokenrightbrace->tokenType);
+				printf("%s\n", specialtokenrightbrace->data);
+				DestroyToken(specialtokenrightbrace);
 				z=y;
 				break;
 			case '{' :
 				y=z+1;
-				createNewString(input,"Left Bracket",y,z);
+				Token *specialtokenleftbracket = Create(input,"Left Bracket",y,z);
+				printf("%s ", specialtokenleftbracket->tokenType);
+				printf("%s\n", specialtokenleftbracket->data);
+				DestroyToken(specialtokenleftbracket);
 				z=y;
 				break;
 			case '}' :
 				y=z+1;
-				createNewString(input,"Right Bracket",y,z);
+				Token *specialtokenrightbracket = Create(input,"Right Bracket",y,z);
+				printf("%s ", specialtokenrightbracket->tokenType);
+				printf("%s\n", specialtokenrightbracket->data);
+				DestroyToken(specialtokenrightbracket);
 				z=y;
 				break;
 			case '_' :
 				y=z+1;
-				createNewString(input,"Underscore",y,z);
+				Token *specialtokenunderscore = Create(input,"Underscore",y,z);
+				printf("%s ", specialtokenunderscore->tokenType);
+				printf("%s\n", specialtokenunderscore->data);
+				DestroyToken(specialtokenunderscore);
 				z=y;
 				break;
 			case '#' :
 				y=z+1;
-				createNewString(input,"Hash",y,z);
+				Token *specialtokenhash = Create(input,"Hash",y,z);
+				printf("%s ", specialtokenhash->tokenType);
+				printf("%s\n", specialtokenhash->data);
+				DestroyToken(specialtokenhash);
 				z=y;
 				break;
 			case '!' :
 				y=z+1;
-				createNewString(input,"Not / Exclamation",y,z);
+				Token *specialtokenexclamation = Create(input,"Not / Exclamation",y,z);
+				printf("%s ", specialtokenexclamation->tokenType);
+				printf("%s\n", specialtokenexclamation->data);
+				DestroyToken(specialtokenexclamation);
 				z=y;
 				break;
 			case '`' :
 				y=z+1;
-				createNewString(input,"Tilde",y,z);
+				Token *specialtokentilde = Create(input,"Tilde",y,z);
+				printf("%s ", specialtokentilde->tokenType);
+				printf("%s\n", specialtokentilde->data);
+				DestroyToken(specialtokentilde);
 				z=y;
 				break;
 			case '(' :
 				y=z+1;
-				createNewString(input,"Left Parenthesis",y,z);
+				Token *specialtokenleftparenth = Create(input,"Left Parenthesis",y,z);
+				printf("%s ", specialtokenleftparenth->tokenType);
+				printf("%s\n", specialtokenleftparenth->data);
+				DestroyToken(specialtokenleftparenth);
 				z=y;
 				break;
 			case ')' :
 				y=z+1;
-				createNewString(input,"Right Parenthesis",y,z);
+				Token *specialtokenrightparenth = Create(input,"Right Parenthesis",y,z);
+				printf("%s ", specialtokenrightparenth->tokenType);
+				printf("%s\n", specialtokenrightparenth->data);
+				DestroyToken(specialtokenrightparenth);
 				z=y;
 				break;
 			default :
@@ -567,17 +725,8 @@ void populateTokenList(char* input)
 	}
 }
 
-/* The main function */
 int main(int argc, char **argv) 
 {
-	if (argv[1]==NULL || strlen(argv[1])==0)
-	{
-		printf("%s\n", "No Argument");
-		return 0;
-	}
-	
-	populateTokenList(argv[1]);	
-
-	
+  populateTokenList(argv[1]);	
   return 0;
 }
