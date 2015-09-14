@@ -69,8 +69,35 @@ Floating Point 1.575e-1
 
 Output
 Floating Point 1.575e-1
+---------------------
+Inputs
+" array[xyz ] += pi 3.14159e-10 "
 
+Expected Output
+word array
+left brace [
+word xyz
+right brace ]
+plusequals +=
+word pi
+float 3.14159e-10
 
+Output
+word array
+left brace [
+word xyz
+right brace ]
+plusequals +=
+word pi
+float 3.14159e-10
+-----------------------
+Inputs:
+"    "
+
+Expected Output: (???)
+
+Output:
+""
 
 
 
