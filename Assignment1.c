@@ -112,12 +112,11 @@ void populateTokenList(char* input)
 				
 				if (r == 0)
 				{
-				Token *octaltoken = Create(input,"Octal",y,z);
-				printf("%s ", octaltoken->tokenType);
-				printf("%s\n", octaltoken->data);
-				DestroyToken(octaltoken);
-				
-				z=y;
+					Token *octaltoken = Create(input,"Octal",y,z);
+					printf("%s ", octaltoken->tokenType);
+					printf("%s\n", octaltoken->data);
+					DestroyToken(octaltoken);
+					z=y;
 				}
 				
 				else if (r!=0)
