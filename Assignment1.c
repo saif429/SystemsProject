@@ -27,14 +27,15 @@ Token *Create(char * input, char * type, int y, int z)
 		b++;
 	}	
 	
-		Token *newToken=(struct Token*)malloc(sizeof(Token));
+	Token *newToken=(struct Token*)malloc(sizeof(Token));
        	newToken->data=NewToken;
-		newToken->tokenType=type;
-		return newToken;
+	newToken->tokenType=type;
+	return newToken;
 
 }
 
-void DestroyToken( Token * tk ){
+void DestroyToken( Token * tk )
+{
 	free(tk);
 }
 
@@ -312,7 +313,7 @@ void populateTokenList(char* input)
 				continue;
 		}
 		
-		/* Switch Statement for other characters */
+		/* Dual operator check */
 		if (input[z]=='<' && input[z+1]=='<' && input[z+1]=='=')
 		{
 			y=z+2;
@@ -507,7 +508,7 @@ void populateTokenList(char* input)
 		}
 		
 		
-		
+		/*Contains single character operators*/	
 		switch (input[z])
 		{
 			case '+' :
@@ -727,6 +728,16 @@ void populateTokenList(char* input)
 
 int main(int argc, char **argv) 
 {
-  populateTokenList(argv[1]);	
-  return 0;
+	if (argv[1]==NULL || strlen(argv[1])==0)
+	{
+		printf("%s\n", "No Argument");
+		return 0;
+	}
+	else if (argc>2)
+	{
+		printf("%s\n", "Too many arguments or argument not enclosed in commas.");
+	}
+
+  	populateTokenList(argv[1]);	
+  	return 0;
 }
