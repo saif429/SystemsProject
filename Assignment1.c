@@ -3,6 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 
+/*Stores the token and the token type */
+
 struct Token 
 {
 	char *data;
@@ -10,6 +12,9 @@ struct Token
 };
 
 typedef struct Token Token;
+
+/*Creates the token structure */
+/* A glorified substring finder*/
 
 Token *Create(char * input, char * type, int y, int z) 
 {
@@ -19,7 +24,7 @@ Token *Create(char * input, char * type, int y, int z)
 	char *NewToken=malloc((TokenLength+1)*sizeof(char*));
 	NewToken[TokenLength]='\0';
 	
-				
+	/*Copies the substring to a string */		
 	int b = 0;
 	for (TokenStart=z; TokenStart<y; TokenStart++)
 	{
@@ -27,6 +32,7 @@ Token *Create(char * input, char * type, int y, int z)
 		b++;
 	}	
 	
+	/* stores stuff in the structure */
 	Token *newToken=(struct Token*)malloc(sizeof(Token));
        	newToken->data=NewToken;
 	newToken->tokenType=type;
@@ -34,16 +40,21 @@ Token *Create(char * input, char * type, int y, int z)
 
 }
 
+/* Basically frees the specified token */
 void DestroyToken( Token * tk )
 {
 	free(tk);
 }
 
+/* Depreciated. Does not work, we have another function that extracts all the tokens at once instead
+of looping the getnexttoken function */
 char *GetNextToken( Token * tk ) 
 {
   return NULL;
 }
 
+/*  USed to populate the linked list, now it checks the string
+array and prints out tokens based on the input */
 void populateTokenList(char* input)
 {
 	/* indicates how many times to iterate */
@@ -119,6 +130,7 @@ void populateTokenList(char* input)
 					z=y;
 				}
 				
+				/* A floating point decimal check */
 				else if (r!=0)
 				{			
 					y = y+1;
@@ -150,7 +162,7 @@ void populateTokenList(char* input)
 			
 			}
 			
-			/*  added E for floating point stuff" */	
+			/* Another floating point check */	
 			else if(input[z+1]=='.' || input[z+1]=='e' || input[z+1]=='E')
 			{
 				y=z+2;
@@ -220,9 +232,11 @@ void populateTokenList(char* input)
 		{
 			y = z+1;
 			int h = 0;
-			while (isdigit(input[y])) // in this statement we need to have something for floating point
+			
+			/* in this statement we need to have something for floating point? */
+			while (isdigit(input[y])) 
 			{
-				
+				/*breaks if it detects a hexadecimal */
 				if (input[y]=='0' && (input[y+1]=='x' || input[y+1] == 'X'))
 				{
 					break;
@@ -236,8 +250,9 @@ void populateTokenList(char* input)
 					h++;
 				}
 				
+				/* Null character check */
 				else if (input[y] == '\0')
-				{ // if it hits the end of the string, this adds on the null character index.
+				{ 
 					y++;
 					break;
 				}
@@ -252,6 +267,9 @@ void populateTokenList(char* input)
 				DestroyToken(decimaltoken);
 				z=y;
 			}
+			
+			/* Another floating point check for floating points that
+			come after a long string of decimal digits */
 			
 			else if (h!=0)
 			{			
@@ -282,7 +300,7 @@ void populateTokenList(char* input)
 				continue;
 			}	
 		}
-		/*added e for floating point*/
+		/* Another floating point check */
 		else if (isdigit(input[z]) && (input[z+1]=='.' || input[z+1]=='E' || input[z+1]=='e'))
 		{
 			y=z+2;
@@ -298,6 +316,7 @@ void populateTokenList(char* input)
 					break;
 				}
 						
+				/*Checks for hexadecimal */
 				else if (input[y] == '0' && (input[y+1] == 'X' || input[y+1] == 'x'))
 				{
 					break;
@@ -312,7 +331,7 @@ void populateTokenList(char* input)
 				continue;
 		}
 		
-		/* Dual operator check */
+		/* Dual and triple operator check */
 		if (input[z]=='<' && input[z+1]=='<' && input[z+1]=='=')
 		{
 			y=z+2;
@@ -718,6 +737,7 @@ void populateTokenList(char* input)
 				DestroyToken(specialtokenrightparenth);
 				z=y;
 				break;
+			/* If not recognized, dont print anything and just keep going */
 			default :
 				z++;
 				break;
@@ -727,11 +747,13 @@ void populateTokenList(char* input)
 
 int main(int argc, char **argv) 
 {
+	/* For no input */
 	if (argv[1]==NULL || strlen(argv[1])==0)
 	{
 		printf("%s\n", "No Argument");
 		return 0;
 	}
+	
 	else if (argc>2)
 	{
 		printf("%s\n", "Too many arguments or argument not enclosed in commas.");
