@@ -8,9 +8,9 @@ This project uses a linked list implementation which allows easy storage of toke
 
 Steps to get it to run
 
-Compile the source file and give the executable a name
+1) Compile the source file and give the executable a name
 
-Run the program from the command line with a command such as
+2) Run the program from the command line with a command such as
 ./tokenizer "0x4356abdc 0777 [] "
 
 or 
@@ -23,4 +23,4 @@ shell environments, please avoid using it in your inputs.
 
 Emojis, and characters that do not appear on a normal keyboard are not supported.
 
-
+Check the test cases for expected outputs. Most keyboard characters are supported. If our program prints "Malformed Token", you most likely entered a number with a bad format.
