@@ -243,11 +243,12 @@ void populateTokenList(char* input)
 			}
 			
 			/*  added E for floating point stuff" */	
-			else if(input[z+1]=='.' || input[z+1]=='e' || input[z+1]=='E')
+			else if (isdigit(input[z]) && (input[z+1]=='.' || (input[z+1]=='E' && input[z+2]!='E') || (input[z+1]=='e' && input[z+2]!='e')))
 			{
-				y=z+2;
-				
-				while (isdigit(input[y]) || input[y]=='e' || input[y]=='E' || (input[y]=='-' && isdigit(input[y+1])))
+			y=z+2;
+			
+			
+			while (isdigit(input[y]) || (input[y]=='E' && input[y+1]!='E') || (input[y]=='e' && input[y+1]!='e') || (input[y]=='-' && isdigit(input[y+1])))
 				{
 					/*keeps count of how many indexes have been iterated through*/
 					y++; 
