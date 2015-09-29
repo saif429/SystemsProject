@@ -9,25 +9,28 @@
 /*
  * Sorted list type.  You need to fill in the type as part of your implementation.
  */
-struct SortedList
+struct nodelist
 {
 
 void * data;
+struct nodelist *next;
+} *head;
 
-};
 
 
-typedef struct SortedList* SortedListPtr;
+typedef struct nodelist* nodelist;
 
 
 /*
  * Iterator type for user to "walk" through the list item by item, from
  * beginning to end.  You need to fill in the type as part of your implementation.
  */
-struct SortedListIterator
+struct NodeListIterator
 {
+  
+  
 };
-typedef struct SortedListIterator* SortedListIteratorPtr;
+typedef struct NodeListIterator* NodeListIterator;
 
 
 /*
